@@ -1,686 +1,87 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizador - La Casa de las Puertas</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    
-    <!-- React y ReactDOM vía CDN -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    
-    <!-- Babel para interpretar JSX en el navegador -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- Lucide Icons (Versión UMD para navegador) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* gray-100 */
-        }
-    </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
-    "vite": "https://aistudiocdn.com/vite@^7.2.4",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
-  }
+<!doctype html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¿A quién quiere más Angie? — El juicio del chat</title>
+<style>
+:root{--bg:#f3f0eb;--paper:#fff;--ink:#171614;--muted:#716d67;--line:#e6e0d8;--raul:#3a4d73;--gon:#8e3f5a;--gold:#ad7a24;--soft:#faf8f5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial;color:var(--ink)}.wrap{max-width:1420px;margin:auto;padding:24px 16px 70px}
+.hero{background:#171614;color:#fff;border-radius:28px;padding:clamp(26px,5vw,62px);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:420px;height:420px;border:1px solid #ffffff20;border-radius:50%;right:-130px;top:-210px}
+.eyebrow{text-transform:uppercase;letter-spacing:.17em;font-size:11px;color:#c7bfb5;font-weight:800}h1{font-size:clamp(44px,8vw,104px);line-height:.88;letter-spacing:-.065em;margin:14px 0 20px;max-width:1050px}.lead{font-size:clamp(15px,2vw,20px);line-height:1.55;color:#d5cec6;max-width:850px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}.chip{border:1px solid #ffffff25;border-radius:999px;padding:9px 13px;font-size:12px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 14px 38px rgba(35,28,20,.035)}.section{margin-top:22px}.head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:0 4px 11px}h2{margin:0;font-size:clamp(24px,3vw,38px);letter-spacing:-.035em}.desc{color:var(--muted);font-size:12px;max-width:620px;line-height:1.5}
+.verdict{display:grid;grid-template-columns:1.15fr .85fr;overflow:hidden}.verdict-main{padding:28px}.verdict-side{padding:28px;border-left:1px solid var(--line);background:var(--soft)}.stamp{font-size:12px;color:var(--muted)}.huge{font-size:clamp(46px,7vw,92px);letter-spacing:-.06em;font-weight:950;line-height:.95;margin:12px 0}.verdict p{color:var(--muted);line-height:1.6}
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:13px}.index{padding:22px}.index-top{display:flex;justify-content:space-between;gap:12px;align-items:center}.score{font-size:32px;font-weight:900}.bar{height:12px;background:#eee9e2;border-radius:999px;overflow:hidden;margin:16px 0 8px;display:flex}.bar i{height:100%;display:block}.legend{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.scoreboard{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.scorebox{padding:22px;text-align:center}.scorebox b{font-size:48px;display:block;letter-spacing:-.05em}.scorebox span{color:var(--muted);font-size:12px}
+.tablewrap{overflow:auto;border-radius:20px;border:1px solid var(--line);background:#fff}table{width:100%;border-collapse:collapse;min-width:980px}th{background:#22201d;color:#fff;text-align:left;font-size:11px;padding:13px 12px;position:sticky;top:0}td{padding:13px 12px;border-bottom:1px solid var(--line);font-size:12px}tr:hover td{background:#fcfaf7}.winner{display:inline-flex;border-radius:999px;padding:5px 9px;background:#eee9e2;font-weight:850}
+.r{color:var(--raul);font-weight:850}.g{color:var(--gon);font-weight:850}.weeks{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.week{padding:20px}.weektop{display:flex;justify-content:space-between;gap:12px}.week h3{margin:0;font-size:22px}.range{font-size:12px;color:var(--muted);margin-top:3px}.weekgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.person{border:1px solid var(--line);border-radius:15px;padding:13px}.person h4{margin:0 0 8px}.row{display:flex;justify-content:space-between;border-top:1px dashed var(--line);padding:7px 0;font-size:12px}.row:first-of-type{border-top:0}.comment{margin-top:13px;background:var(--soft);border-radius:13px;padding:12px;font-size:13px;line-height:1.5;color:var(--muted)}
+.hot{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.hot .card{padding:18px}.hot b{font-size:24px;display:block}.hot small{color:var(--muted)}.note{padding:17px;color:var(--muted);font-size:12px;line-height:1.6;margin-top:20px}
+@media(max-width:900px){.verdict{grid-template-columns:1fr}.verdict-side{border-left:0;border-top:1px solid var(--line)}.dual,.weeks{grid-template-columns:1fr}.scoreboard{grid-template-columns:repeat(3,1fr)}.hot{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.wrap{padding:12px 10px 45px}.hero{border-radius:20px}.scoreboard{grid-template-columns:1fr}.weekgrid,.hot{grid-template-columns:1fr}.card{border-radius:17px}}
+</style></head><body><main class="wrap">
+<section class="hero"><div class="eyebrow">Auditoría sentimental no solicitada</div><h1>¿A quién quiere más Angie?</h1><div class="lead">Raúl entra con romance. Gonzalo entra con años de confianza, chisme premium y soporte técnico-emocional. Analizamos el mismo periodo para ambos y dejamos que WhatsApp declare al ganador de cada categoría.</div><div class="hero-meta"><span class="chip">Periodo: 16 mayo–15 julio 2026</span><span class="chip">Dos chats comparados</span><span class="chip">Resultados basados en conducta escrita</span></div></section>
+
+<section class="section card verdict"><div class="verdict-main"><div class="stamp">VEREDICTO DEL COMITÉ</div><div class="huge" id="mainVerdict"></div><p id="verdictText"></p></div><div class="verdict-side"><b>La respuesta picante</b><p>Angie no parece relacionarse igual con ambos. Con Raúl se mide la <b>tensión romántica</b>; con Gonzalo, la <b>confianza estructural</b>. El dashboard no lee la mente: revela quién domina cada territorio.</p></div></section>
+
+<section class="section"><div class="head"><h2>Los dos campeonatos</h2><div class="desc">Para no mezclar peras con corazones: un índice mide señales románticas y otro mide confianza/complicidad.</div></div><div class="dual" id="indices"></div></section>
+
+<section class="section"><div class="head"><h2>Marcador por categorías</h2><div class="desc">Cada categoría concede un punto. Los empates no se fuerzan.</div></div><div class="scoreboard" id="scoreboard"></div></section>
+
+<section class="section"><div class="head"><h2>El VAR sentimental</h2><div class="desc">Valores de Angie en cada chat. La respuesta más rápida se premia con el menor tiempo.</div></div><div class="tablewrap"><table><thead><tr><th>Categoría</th><th>Raúl</th><th>Gonzalo</th><th>Ganador</th></tr></thead><tbody id="cats"></tbody></table></div></section>
+
+<section class="section"><div class="head"><h2>Estadísticas que generan pelea</h2><div class="desc">Datos duros para que nadie diga “la IA lo inventó”.</div></div><div class="hot" id="hot"></div></section>
+
+<section class="section"><div class="head"><h2>MVP por semana</h2><div class="desc">El ganador semanal combina búsqueda, frecuencia, respuesta, preguntas, humor, cariño, planes y vulnerabilidad.</div></div><div class="weeks" id="weeks"></div></section>
+
+<div class="card note"><b>Nota seria escondida al final:</b> “querer más” no puede medirse de forma objetiva a partir de WhatsApp. Este informe compara señales visibles: atención, iniciativa, confianza, afecto, lenguaje romántico y presencia. Además, un mejor amigo y un saliente ocupan funciones diferentes, por lo que el resultado más honesto es identificar qué vínculo domina cada dimensión.</div>
+</main><script>
+const D={"overall": {"Raúl": {"angie_messages": 2642, "other_messages": 1941, "angie_share": 57.6, "angie_starts": 38, "other_starts": 29, "median_response": 15.0, "avg_response": 50.9, "questions": 340, "laughs": 465, "affection": 23, "care": 38, "vulnerability": 49, "advice": 1, "plans": 58, "romance": 10, "support": 7, "teasing": 0, "secrets": 1, "jealousy": 2, "media": 0, "active_days": 53, "conversation_days": 59, "daily_presence": 96.7, "words": 8952}, "Gonzalo": {"angie_messages": 21126, "other_messages": 29657, "angie_share": 41.6, "angie_starts": 17, "other_starts": 17, "median_response": 0.1, "avg_response": 4.6, "questions": 872, "laughs": 2117, "affection": 974, "care": 68, "vulnerability": 457, "advice": 9, "plans": 278, "romance": 128, "support": 25, "teasing": 631, "secrets": 6, "jealousy": 20, "media": 3533, "active_days": 61, "conversation_days": 61, "daily_presence": 100.0, "words": 61053}}, "weekly": [{"week": 1, "range": "16–17 de mayo", "Raúl": {"angie_messages": 0, "other_messages": 0, "angie_share": 0, "angie_starts": 0, "other_starts": 0, "median_response": null, "avg_response": null, "questions": 0, "laughs": 0, "affection": 0, "care": 0, "vulnerability": 0, "advice": 0, "plans": 0, "romance": 0, "support": 0, "teasing": 0, "secrets": 0, "jealousy": 0, "media": 0, "active_days": 0, "conversation_days": 0, "daily_presence": 0.0, "words": 0}, "Gonzalo": {"angie_messages": 711, "other_messages": 963, "angie_share": 42.5, "angie_starts": 0, "other_starts": 2, "median_response": 0.2, "avg_response": 5.1, "questions": 32, "laughs": 58, "affection": 46, "care": 2, "vulnerability": 6, "advice": 0, "plans": 11, "romance": 1, "support": 0, "teasing": 19, "secrets": 0, "jealousy": 0, "media": 146, "active_days": 2, "conversation_days": 2, "daily_presence": 3.3, "words": 1950}, "winner": "Gonzalo", "scores": {"Raúl": 0.0, "Gonzalo": 171.1}, "summary": "Semana con mayor confianza, frecuencia o complicidad con Gonzalo."}, {"week": 2, "range": "18–24 de mayo", "Raúl": {"angie_messages": 358, "other_messages": 280, "angie_share": 56.1, "angie_starts": 6, "other_starts": 2, "median_response": 15.0, "avg_response": 52.8, "questions": 51, "laughs": 75, "affection": 1, "care": 3, "vulnerability": 3, "advice": 0, "plans": 11, "romance": 2, "support": 4, "teasing": 0, "secrets": 0, "jealousy": 0, "media": 0, "active_days": 6, "conversation_days": 7, "daily_presence": 11.5, "words": 1195}, "Gonzalo": {"angie_messages": 3149, "other_messages": 4241, "angie_share": 42.6, "angie_starts": 5, "other_starts": 2, "median_response": 0.1, "avg_response": 4.4, "questions": 137, "laughs": 306, "affection": 133, "care": 13, "vulnerability": 61, "advice": 1, "plans": 46, "romance": 28, "support": 2, "teasing": 112, "secrets": 1, "jealousy": 6, "media": 562, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 9133}, "winner": "Gonzalo", "scores": {"Raúl": 98.2, "Gonzalo": 548.5}, "summary": "Semana con mayor confianza, frecuencia o complicidad con Gonzalo."}, {"week": 3, "range": "25–31 de mayo", "Raúl": {"angie_messages": 554, "other_messages": 419, "angie_share": 56.9, "angie_starts": 7, "other_starts": 0, "median_response": 12.9, "avg_response": 40.0, "questions": 89, "laughs": 93, "affection": 4, "care": 9, "vulnerability": 12, "advice": 1, "plans": 12, "romance": 4, "support": 0, "teasing": 0, "secrets": 1, "jealousy": 0, "media": 0, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 1838}, "Gonzalo": {"angie_messages": 2985, "other_messages": 4142, "angie_share": 41.9, "angie_starts": 4, "other_starts": 2, "median_response": 0.2, "avg_response": 4.4, "questions": 121, "laughs": 337, "affection": 142, "care": 7, "vulnerability": 70, "advice": 1, "plans": 40, "romance": 15, "support": 4, "teasing": 81, "secrets": 2, "jealousy": 3, "media": 453, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 8793}, "winner": "Gonzalo", "scores": {"Raúl": 134.1, "Gonzalo": 551.8}, "summary": "Semana con mayor confianza, frecuencia o complicidad con Gonzalo."}, {"week": 4, "range": "1–7 de junio", "Raúl": {"angie_messages": 233, "other_messages": 169, "angie_share": 58.0, "angie_starts": 5, "other_starts": 5, "median_response": 22.3, "avg_response": 63.1, "questions": 24, "laughs": 33, "affection": 1, "care": 5, "vulnerability": 4, "advice": 0, "plans": 5, "romance": 0, "support": 1, "teasing": 0, "secrets": 0, "jealousy": 0, "media": 0, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 766}, "Gonzalo": {"angie_messages": 1789, "other_messages": 2593, "angie_share": 40.8, "angie_starts": 2, "other_starts": 1, "median_response": 0.1, "avg_response": 7.1, "questions": 58, "laughs": 183, "affection": 122, "care": 10, "vulnerability": 42, "advice": 0, "plans": 31, "romance": 14, "support": 1, "teasing": 46, "secrets": 0, "jealousy": 3, "media": 276, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 5064}, "winner": "Gonzalo", "scores": {"Raúl": 58.7, "Gonzalo": 401.4}, "summary": "Semana con mayor confianza, frecuencia o complicidad con Gonzalo."}, {"week": 5, "range": "8–14 de junio", "Raúl": {"angie_messages": 243, "other_messages": 156, "angie_share": 60.9, "angie_starts": 4, "other_starts": 5, "median_response": 20.2, "avg_response": 56.6, "questions": 33, "laughs": 41, "affection": 7, "care": 1, "vulnerability": 9, "advice": 0, "plans": 5, "romance": 0, "support": 1, "teasing": 0, "secrets": 0, "jealousy": 0, "media": 0, "active_days": 6, "conversation_days": 7, "daily_presence": 11.5, "words": 741}, "Gonzalo": {"angie_messages": 2037, "other_messages": 2830, "angie_share": 41.9, "angie_starts": 0, "other_starts": 4, "median_response": 0.1, "avg_response": 4.0, "questions": 97, "laughs": 179, "affection": 109, "care": 10, "vulnerability": 56, "advice": 3, "plans": 24, "romance": 15, "support": 2, "teasing": 59, "secrets": 0, "jealousy": 2, "media": 375, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 5474}, "winner": "Gonzalo", "scores": {"Raúl": 70.7, "Gonzalo": 396.2}, "summary": "Semana con mayor confianza, frecuencia o complicidad con Gonzalo."}, {"week": 6, "range": "15–21 de junio", "Raúl": {"angie_messages": 110, "other_messages": 86, "angie_share": 56.1, "angie_starts": 2, "other_starts": 6, "median_response": 20.1, "avg_response": 49.4, "questions": 13, "laughs": 18, "affection": 1, "care": 0, "vulnerability": 0, "advice": 0, "plans": 3, "romance": 0, "support": 0, "teasing": 0, "secrets": 0, "jealousy": 0, "media": 0, "active_days": 5, "conversation_days": 7, "daily_presence": 11.5, "words": 363}, "Gonzalo": {"angie_messages": 1246, "other_messages": 1789, "angie_share": 41.1, "angie_starts": 1, "other_starts": 1, "median_response": 0.2, "avg_response": 7.3, "questions": 70, "laughs": 99, "affection": 94, "care": 7, "vulnerability": 28, "advice": 0, "plans": 15, "romance": 7, "support": 1, "teasing": 33, "secrets": 0, "jealousy": 1, "media": 226, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 3369}, "winner": "Gonzalo", "scores": {"Raúl": 31.8, "Gonzalo": 292.7}, "summary": "Semana con mayor confianza, frecuencia o complicidad con Gonzalo."}, {"week": 7, "range": "22–28 de junio", "Raúl": {"angie_messages": 150, "other_messages": 103, "angie_share": 59.3, "angie_starts": 5, "other_starts": 1, "median_response": 32.1, "avg_response": 98.1, "questions": 23, "laughs": 21, "affection": 1, "care": 3, "vulnerability": 2, "advice": 0, "plans": 1, "romance": 0, "support": 0, "teasing": 0, "secrets": 0, "jealousy": 0, "media": 0, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 463}, "Gonzalo": {"angie_messages": 1838, "other_messages": 2563, "angie_share": 41.8, "angie_starts": 0, "other_starts": 2, "median_response": 0.4, "avg_response": 5.2, "questions": 75, "laughs": 153, "affection": 88, "care": 5, "vulnerability": 30, "advice": 1, "plans": 24, "romance": 14, "support": 5, "teasing": 41, "secrets": 0, "jealousy": 1, "media": 326, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 5049}, "winner": "Gonzalo", "scores": {"Raúl": 43.6, "Gonzalo": 331.9}, "summary": "Semana con mayor confianza, frecuencia o complicidad con Gonzalo."}, {"week": 8, "range": "29 de junio–5 de julio", "Raúl": {"angie_messages": 144, "other_messages": 114, "angie_share": 55.8, "angie_starts": 4, "other_starts": 5, "median_response": 16.6, "avg_response": 78.7, "questions": 16, "laughs": 22, "affection": 0, "care": 4, "vulnerability": 4, "advice": 0, "plans": 6, "romance": 1, "support": 0, "teasing": 0, "secrets": 0, "jealousy": 0, "media": 0, "active_days": 5, "conversation_days": 7, "daily_presence": 11.5, "words": 574}, "Gonzalo": {"angie_messages": 3797, "other_messages": 5261, "angie_share": 41.9, "angie_starts": 1, "other_starts": 3, "median_response": 0.1, "avg_response": 2.4, "questions": 129, "laughs": 402, "affection": 121, "care": 8, "vulnerability": 83, "advice": 0, "plans": 50, "romance": 22, "support": 2, "teasing": 120, "secrets": 1, "jealousy": 2, "media": 562, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 11259}, "winner": "Gonzalo", "scores": {"Raúl": 48.0, "Gonzalo": 579.8}, "summary": "Semana con mayor confianza, frecuencia o complicidad con Gonzalo."}, {"week": 9, "range": "6–12 de julio", "Raúl": {"angie_messages": 615, "other_messages": 445, "angie_share": 58.0, "angie_starts": 2, "other_starts": 5, "median_response": 12.9, "avg_response": 32.3, "questions": 67, "laughs": 117, "affection": 2, "care": 6, "vulnerability": 12, "advice": 0, "plans": 11, "romance": 2, "support": 1, "teasing": 0, "secrets": 0, "jealousy": 2, "media": 0, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 2198}, "Gonzalo": {"angie_messages": 2625, "other_messages": 3857, "angie_share": 40.5, "angie_starts": 4, "other_starts": 2, "median_response": 0.2, "avg_response": 4.6, "questions": 108, "laughs": 282, "affection": 90, "care": 5, "vulnerability": 64, "advice": 3, "plans": 30, "romance": 6, "support": 4, "teasing": 93, "secrets": 2, "jealousy": 2, "media": 439, "active_days": 7, "conversation_days": 7, "daily_presence": 11.5, "words": 7831}, "winner": "Gonzalo", "scores": {"Raúl": 123.8, "Gonzalo": 433.7}, "summary": "Semana con mayor confianza, frecuencia o complicidad con Gonzalo."}, {"week": 10, "range": "13–15 de julio", "Raúl": {"angie_messages": 235, "other_messages": 169, "angie_share": 58.2, "angie_starts": 3, "other_starts": 0, "median_response": 12.6, "avg_response": 33.2, "questions": 24, "laughs": 45, "affection": 6, "care": 7, "vulnerability": 3, "advice": 0, "plans": 4, "romance": 1, "support": 0, "teasing": 0, "secrets": 0, "jealousy": 0, "media": 0, "active_days": 3, "conversation_days": 3, "daily_presence": 4.9, "words": 814}, "Gonzalo": {"angie_messages": 949, "other_messages": 1418, "angie_share": 40.1, "angie_starts": 1, "other_starts": 2, "median_response": 0.3, "avg_response": 4.2, "questions": 45, "laughs": 118, "affection": 29, "care": 1, "vulnerability": 17, "advice": 0, "plans": 7, "romance": 6, "support": 4, "teasing": 27, "secrets": 0, "jealousy": 0, "media": 168, "active_days": 3, "conversation_days": 3, "daily_presence": 4.9, "words": 3131}, "winner": "Gonzalo", "scores": {"Raúl": 68.7, "Gonzalo": 200.3}, "summary": "Semana con mayor confianza, frecuencia o complicidad con Gonzalo."}], "categories": [{"label": "Prioridad conversacional", "metric": "angie_messages", "winner": "Gonzalo", "raul": 2642, "gonzalo": 21126}, {"label": "Búsqueda activa", "metric": "angie_starts", "winner": "Raúl", "raul": 38, "gonzalo": 17}, {"label": "Respuesta rápida", "metric": "median_response", "winner": "Gonzalo", "raul": 15.0, "gonzalo": 0.1}, {"label": "Curiosidad", "metric": "questions", "winner": "Gonzalo", "raul": 340, "gonzalo": 872}, {"label": "Humor y complicidad", "metric": "laughs", "winner": "Gonzalo", "raul": 465, "gonzalo": 2117}, {"label": "Cariño verbal", "metric": "affection", "winner": "Gonzalo", "raul": 23, "gonzalo": 974}, {"label": "Cuidado", "metric": "care", "winner": "Gonzalo", "raul": 38, "gonzalo": 68}, {"label": "Confianza emocional", "metric": "vulnerability", "winner": "Gonzalo", "raul": 49, "gonzalo": 457}, {"label": "Búsqueda de consejo", "metric": "advice", "winner": "Gonzalo", "raul": 1, "gonzalo": 9}, {"label": "Planes juntos", "metric": "plans", "winner": "Gonzalo", "raul": 58, "gonzalo": 278}, {"label": "Lenguaje romántico", "metric": "romance", "winner": "Gonzalo", "raul": 10, "gonzalo": 128}, {"label": "Apoyo explícito", "metric": "support", "winner": "Gonzalo", "raul": 7, "gonzalo": 25}, {"label": "Bromas internas", "metric": "teasing", "winner": "Gonzalo", "raul": 0, "gonzalo": 631}, {"label": "Contenido compartido", "metric": "media", "winner": "Gonzalo", "raul": 0, "gonzalo": 3533}, {"label": "Presencia diaria", "metric": "daily_presence", "winner": "Empate", "raul": 96.7, "gonzalo": 100.0}], "wins": {"Raúl": 1, "Gonzalo": 13, "Empate": 1}, "romance_idx": {"Raúl": 15.8, "Gonzalo": 84.2}, "trust_idx": {"Raúl": 18.3, "Gonzalo": 81.7}, "period": "16 de mayo–15 de julio de 2026", "counts": {"raul_chat": 4583, "gonzalo_chat": 50783}};
+const O=D.overall, R=O['Raúl'], G=O['Gonzalo'];
+const fmt=v=>v==null?'—':Number(v).toLocaleString('es-PE');
+const romanceWinner=D.romance_idx['Raúl']>D.romance_idx['Gonzalo']?'Raúl':'Gonzalo';
+const trustWinner=D.trust_idx['Raúl']>D.trust_idx['Gonzalo']?'Raúl':'Gonzalo';
+document.getElementById('mainVerdict').innerHTML=romanceWinner===trustWinner?`${romanceWinner} domina el tablero`:`Raúl gana romance.<br>Gonzalo gana confianza.`;
+document.getElementById('verdictText').innerHTML=romanceWinner===trustWinner
+?`En este periodo, ${romanceWinner} lidera tanto las señales románticas como las de cercanía conversacional. Eso no demuestra amor, pero sí una ventaja clara dentro de los chats.`
+:`El resultado más interesante no es un ganador absoluto: <b>Raúl</b> concentra las señales compatibles con interés romántico, mientras <b>Gonzalo</b> ocupa el territorio de la confianza, la complicidad y la amistad de alta prioridad.`;
+
+function indexCard(title,obj,subtitle){
+ const r=obj['Raúl'],g=obj['Gonzalo'];
+ return `<div class="card index"><div class="index-top"><div><b>${title}</b><div class="desc">${subtitle}</div></div><div class="score">${r>g?'Raúl':'Gonzalo'}</div></div><div class="bar"><i style="width:${r}%;background:var(--raul)"></i><i style="width:${g}%;background:var(--gon)"></i></div><div class="legend"><span class="r">Raúl ${r}%</span><span class="g">Gonzalo ${g}%</span></div></div>`;
 }
-</script>
-</head>
-<body>
-    <div id="root"></div>
-
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-
-        // --- 1. ICONOS (Componentes SVG simples para evitar dependencias complejas en un solo archivo) ---
-        const Icons = {
-            LayoutDashboard: ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>,
-            Calculator: ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>,
-            FileText: ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>,
-            PlusCircle: ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>,
-            Ruler: ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>,
-            Palette: ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.093 0-.844.563-1.469 1.344-1.469h.469c2.686 0 4.875-2.189 4.875-4.875S17.186 2 12 2Z"/></svg>,
-            Settings: ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.09a2 2 0 0 1-1-1.74v-.47a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.39a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>,
-            Info: ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>,
-            Trash2: ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>,
-            Receipt: ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17V7"/></svg>
-        };
-
-        // --- 2. CONSTANTES Y TIPOS (Convertido de TS a JS) ---
-
-        const ProductType = {
-            PUERTA_PRINCIPAL: 'PUERTA_PRINCIPAL',
-            CONTRAPLACADA: 'CONTRAPLACADA',
-            CONTRAPLACADA_REFORZADA: 'CONTRAPLACADA_REFORZADA',
-            PORTON: 'PORTON',
-            PERSONALIZADO: 'PERSONALIZADO'
-        };
-
-        const WoodType = {
-            CEDRO: 'CEDRO',
-            TORNILLO: 'TORNILLO',
-            CACHIMBO: 'CACHIMBO'
-        };
-
-        const FinishType = {
-            LACA: 'LACA',
-            DULLSEALER: 'DULLSEALER',
-            DD: 'DD',
-            BARNIZ_MARINO: 'BARNIZ_MARINO',
-            VARATHANE: 'VARATHANE',
-            PINTADO: 'PINTADO'
-        };
-
-        const MoldingType = {
-            NINGUNO: 'NINGUNO',
-            JAMBA: 'JAMBA',
-            RODON: 'RODON'
-        };
-
-        // --- 3. LÓGICA DE PRECIOS (Convertido de services/pricingLogic.ts) ---
-
-        const getFrameInches = (value, unit) => {
-            if (unit === 'in') return Math.ceil(value);
-            return Math.ceil(value / 2.54);
-        };
-
-        const getPricingDimensions = (w, h) => {
-            return {
-                w: Math.max(w, 1.00),
-                h: Math.max(h, 2.40)
-            };
-        };
-
-        const PRICE_TABLE_PRINCIPAL = {
-            [WoodType.CEDRO]: { base: 3300, paintedBase: 3500, frameExtra: 120 },
-            [WoodType.TORNILLO]: { base: 2700, paintedBase: 2900, frameExtra: 100 },
-            [WoodType.CACHIMBO]: { base: 2600, paintedBase: 2800, frameExtra: 80 },
-        };
-
-        const PRICE_TABLE_REFORZADA = {
-            base: 1500,
-            paintedBase: 1650,
-            frameExtras: {
-                [WoodType.CEDRO]: 120,
-                [WoodType.TORNILLO]: 100,
-                [WoodType.CACHIMBO]: 80,
-            }
-        };
-
-        const PRICE_TABLE_PORTON = {
-            [WoodType.CEDRO]: { base: 2500, paintedBase: 2650, frameExtra: 120 },
-            [WoodType.CACHIMBO]: { base: 1950, paintedBase: 2100, frameExtra: 80 },
-            [WoodType.TORNILLO]: { base: 0, paintedBase: 0, frameExtra: 0 },
-        };
-
-        const FINISH_EXTRAS_PRINCIPAL = {
-            [FinishType.LACA]: 0,
-            [FinishType.DULLSEALER]: 0,
-            [FinishType.DD]: 100,
-            [FinishType.BARNIZ_MARINO]: 20,
-            [FinishType.VARATHANE]: 200,
-            [FinishType.PINTADO]: 0
-        };
-
-        const FINISH_EXTRAS_CONTRAPLACADA = {
-            [FinishType.LACA]: 0,
-            [FinishType.DULLSEALER]: 0,
-            [FinishType.DD]: 80,
-            [FinishType.BARNIZ_MARINO]: 0,
-            [FinishType.VARATHANE]: 100,
-            [FinishType.PINTADO]: 100
-        };
-
-        const MOLDING_PRICES = {
-            [MoldingType.NINGUNO]: 0,
-            [MoldingType.JAMBA]: 15,
-            [MoldingType.RODON]: 8
-        };
-
-        const calculateItemPrice = (item) => {
-            const details = [];
-            let unitPrice = 0;
-
-            if (item.type === ProductType.PERSONALIZADO) {
-                unitPrice = item.customPrice || 0;
-                details.push(`Precio manual: S/. ${unitPrice.toFixed(2)}`);
-                return { unitPrice, details };
-            }
-
-            const width = item.width || 0;
-            const height = item.height || 0;
-            const wood = item.wood || WoodType.CEDRO;
-            const finish = item.finish || FinishType.LACA;
-            const frameUnit = item.frameUnit || 'in';
-            const frameDepth = item.frameDepth || 0;
-            const frameInches = getFrameInches(frameDepth, frameUnit);
-            
-            const isPrincipalGroup = item.type === ProductType.PUERTA_PRINCIPAL || 
-                                    item.type === ProductType.CONTRAPLACADA_REFORZADA ||
-                                    item.type === ProductType.PORTON;
-            
-            const isContraplacada = item.type === ProductType.CONTRAPLACADA;
-
-            // --- PRECIO BASE ---
-            let basePriceCalculated = 0;
-            const { w: calcW, h: calcH } = getPricingDimensions(width, height);
-
-            if (item.type === ProductType.PUERTA_PRINCIPAL) {
-                const prices = PRICE_TABLE_PRINCIPAL[wood];
-                const basis = finish === FinishType.PINTADO ? prices.paintedBase : prices.base;
-                basePriceCalculated = (basis / 2.40) * calcH * calcW;
-                details.push(`Base ${wood} (${finish === FinishType.PINTADO ? 'Pintada' : 'Natural'}): S/. ${basis.toFixed(2)}`);
-            } 
-            else if (item.type === ProductType.CONTRAPLACADA_REFORZADA) {
-                const basis = finish === FinishType.PINTADO ? PRICE_TABLE_REFORZADA.paintedBase : PRICE_TABLE_REFORZADA.base;
-                basePriceCalculated = (basis / 2.40) * calcH * calcW;
-                details.push(`Base Reforzada (${finish === FinishType.PINTADO ? 'Pintada' : 'Natural'}): S/. ${basis.toFixed(2)}`);
-            }
-            else if (item.type === ProductType.PORTON) {
-                if (wood === WoodType.TORNILLO) return { unitPrice: 0, details: ['Madera no disponible'] };
-                const prices = PRICE_TABLE_PORTON[wood];
-                const basis = finish === FinishType.PINTADO ? prices.paintedBase : prices.base;
-                basePriceCalculated = (basis / 2.40) * calcH * calcW;
-                details.push(`Base Portón (${finish === FinishType.PINTADO ? 'Pintada' : 'Natural'}): S/. ${basis.toFixed(2)}`);
-            }
-            else if (isContraplacada) {
-                basePriceCalculated = 690;
-                if (frameDepth === 0) {
-                    basePriceCalculated -= 100;
-                    details.push(`Descuento sin marco: -S/. 100.00`);
-                }
-            }
-
-            if (isPrincipalGroup && (calcW > 1 || calcH > 2.40)) {
-                details.push(`Escalamiento por medidas (${calcW.toFixed(2)}x${calcH.toFixed(2)}m) incluido`);
-            }
-
-            unitPrice += basePriceCalculated;
-
-            // --- ACABADOS EXTRA ---
-            let finishExtra = 0;
-            if (isPrincipalGroup) {
-                finishExtra = FINISH_EXTRAS_PRINCIPAL[finish] || 0;
-            } else if (isContraplacada) {
-                finishExtra = FINISH_EXTRAS_CONTRAPLACADA[finish] || 0;
-            }
-
-            if (finishExtra > 0) {
-                unitPrice += finishExtra;
-                details.push(`Acabado ${finish.replace('_', ' ')}: +S/. ${finishExtra.toFixed(2)}`);
-            }
-
-            // --- INSTALACIÓN ---
-            if (item.type === ProductType.CONTRAPLACADA) {
-                if (!item.includeInstallation) {
-                    unitPrice -= 90;
-                    details.push(`Sin instalación: -S/. 90.00`);
-                }
-            } else if (isPrincipalGroup) {
-                if (!item.includeInstallation) {
-                    if (item.type !== ProductType.PORTON) {
-                        unitPrice -= 150;
-                        details.push(`Sin instalación: -S/. 150.00`);
-                    }
-                }
-            }
-
-            // --- MARCO EXTRA ---
-            const standardDepth = isContraplacada ? 3 : 4;
-            
-            if (frameInches > standardDepth) {
-                const extraInches = frameInches - standardDepth;
-                let pricePerInch = 0;
-                
-                if (item.type !== ProductType.CONTRAPLACADA) {
-                    if (item.type === ProductType.CONTRAPLACADA_REFORZADA) {
-                        pricePerInch = PRICE_TABLE_REFORZADA.frameExtras[wood];
-                    } else if (item.type === ProductType.PUERTA_PRINCIPAL) {
-                        pricePerInch = PRICE_TABLE_PRINCIPAL[wood].frameExtra;
-                    } else if (item.type === ProductType.PORTON) {
-                        pricePerInch = PRICE_TABLE_PORTON[wood].frameExtra;
-                    }
-                    
-                    const extraFrameCost = extraInches * pricePerInch;
-                    unitPrice += extraFrameCost;
-                    details.push(`Marco adicional (+${extraInches}"): S/. ${extraFrameCost.toFixed(2)}`);
-                }
-            }
-
-            // --- MOLDURAS (Jamba / Rodon) ---
-            const perimeter = Math.ceil(height + width + height);
-            
-            if (item.moldingOuter && item.moldingOuter !== MoldingType.NINGUNO) {
-                const price = MOLDING_PRICES[item.moldingOuter];
-                const cost = perimeter * price;
-                unitPrice += cost;
-                details.push(`${item.moldingOuter} (Ext. ${perimeter}m): S/. ${cost.toFixed(2)}`);
-            }
-
-            if (item.moldingInner && item.moldingInner !== MoldingType.NINGUNO) {
-                const price = MOLDING_PRICES[item.moldingInner];
-                const cost = perimeter * price;
-                unitPrice += cost;
-                details.push(`${item.moldingInner} (Int. ${perimeter}m): S/. ${cost.toFixed(2)}`);
-            }
-
-            return { unitPrice, details };
-        };
-
-        // --- 4. COMPONENTE: DoorForm ---
-
-        const DoorForm = ({ onAdd }) => {
-            const [type, setType] = useState(ProductType.PUERTA_PRINCIPAL);
-            const [quantity, setQuantity] = useState(1);
-            const [width, setWidth] = useState(1.00);
-            const [height, setHeight] = useState(2.40);
-            const [wood, setWood] = useState(WoodType.CEDRO);
-            const [finish, setFinish] = useState(FinishType.LACA);
-            const [frameDepth, setFrameDepth] = useState(4); 
-            const [frameUnit, setFrameUnit] = useState('in');
-            const [includeInstallation, setIncludeInstallation] = useState(true);
-            const [moldingOuter, setMoldingOuter] = useState(MoldingType.NINGUNO);
-            const [moldingInner, setMoldingInner] = useState(MoldingType.NINGUNO);
-            const [customName, setCustomName] = useState('');
-            const [customPrice, setCustomPrice] = useState(0);
-
-            useEffect(() => {
-                setMoldingOuter(MoldingType.NINGUNO);
-                setMoldingInner(MoldingType.NINGUNO);
-                
-                if (type === ProductType.CONTRAPLACADA) {
-                    setFrameDepth(3);
-                    setWood(WoodType.CEDRO);
-                    setFinish(FinishType.LACA);
-                    setIncludeInstallation(true);
-                } else if (type === ProductType.CONTRAPLACADA_REFORZADA) {
-                    setFrameDepth(4);
-                    setFinish(FinishType.LACA);
-                    setIncludeInstallation(true);
-                } else if (type === ProductType.PORTON) {
-                    setFrameDepth(4);
-                    if (wood === WoodType.TORNILLO) setWood(WoodType.CEDRO);
-                    setIncludeInstallation(false);
-                } else {
-                    setFrameDepth(4);
-                    setIncludeInstallation(true);
-                }
-            }, [type]);
-
-            const getPreviewItem = () => {
-                const tempItem = {
-                    type, width, height, wood, finish, frameDepth, frameUnit,
-                    includeInstallation, moldingOuter, moldingInner, customPrice
-                };
-                
-                const { unitPrice, details } = calculateItemPrice(tempItem);
-                
-                let name = '';
-                switch(type) {
-                    case ProductType.PUERTA_PRINCIPAL: name = `Puerta Principal ${wood}`; break;
-                    case ProductType.CONTRAPLACADA: name = `Puerta Contraplacada`; break;
-                    case ProductType.CONTRAPLACADA_REFORZADA: name = `Contraplacada Reforzada`; break;
-                    case ProductType.PORTON: name = `Portón ${wood}`; break;
-                    case ProductType.PERSONALIZADO: name = customName || 'Item Personalizado'; break;
-                }
-
-                return {
-                    id: Date.now().toString(),
-                    type, name, quantity, width, height, wood, finish, frameDepth, frameUnit,
-                    includeInstallation, moldingOuter, moldingInner, customPrice,
-                    unitPrice, totalPrice: unitPrice * quantity, details
-                };
-            };
-
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                onAdd(getPreviewItem());
-            };
-
-            const preview = getPreviewItem();
-            const inputClass = "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-900 focus:ring-gray-900 sm:text-sm py-2 px-3 border bg-white text-gray-900";
-            const labelClass = "block text-sm font-medium text-gray-700 mb-1";
-
-            const finishDescriptions = {
-                [FinishType.LACA]: "Acabado estándar natural. Precio normal.",
-                [FinishType.DULLSEALER]: "Acabado mate. Precio normal.",
-                [FinishType.DD]: "Acabado brillante y duro. Protege del sol.",
-                [FinishType.BARNIZ_MARINO]: "Protección extrema para intemperie, humedad y sol.",
-                [FinishType.VARATHANE]: "Solo color natural (Mate/Satinado/Brilloso).",
-                [FinishType.PINTADO]: "Color sólido cubriente."
-            };
-
-            const getFixedFrameDim = () => {
-                if (type === ProductType.CONTRAPLACADA) return '1.5"';
-                if (type === ProductType.PORTON) return '3"';
-                return '2"'; 
-            };
-
-            const isContraplacada = type === ProductType.CONTRAPLACADA || type === ProductType.CONTRAPLACADA_REFORZADA;
-
-            return (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label className={labelClass}>Tipo de Producto</label>
-                            <select value={type} onChange={(e) => setType(e.target.value)} className={inputClass}>
-                                <option value={ProductType.PUERTA_PRINCIPAL}>Puerta Principal</option>
-                                <option value={ProductType.CONTRAPLACADA}>Puerta Contraplacada</option>
-                                <option value={ProductType.CONTRAPLACADA_REFORZADA}>Contraplacada Reforzada</option>
-                                <option value={ProductType.PORTON}>Portón</option>
-                                <option value={ProductType.PERSONALIZADO}>Personalizado</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label className={labelClass}>Cantidad</label>
-                            <input type="number" min="1" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value) || 1)} className={inputClass}/>
-                        </div>
-                    </div>
-
-                    {type === ProductType.PERSONALIZADO ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label className={labelClass}>Descripción</label>
-                                <input type="text" value={customName} onChange={(e) => setCustomName(e.target.value)} className={inputClass} placeholder="Ej. Mantenimiento" required/>
-                            </div>
-                            <div>
-                                <label className={labelClass}>Precio Unitario (S/.)</label>
-                                <input type="number" value={customPrice} onChange={(e) => setCustomPrice(parseFloat(e.target.value) || 0)} className={inputClass} min="0" step="0.10"/>
-                            </div>
-                        </div>
-                    ) : (
-                        <React.Fragment>
-                        <div className="border-t border-gray-200 pt-4">
-                            <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center">
-                                <Icons.Ruler className="w-4 h-4 mr-2 text-gray-700"/> Medidas y Marco
-                            </h3>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div>
-                                    <label className={labelClass}>Ancho (m)</label>
-                                    <input type="number" step="0.01" value={width} onChange={(e) => setWidth(parseFloat(e.target.value) || 0)} className={inputClass}/>
-                                </div>
-                                <div>
-                                    <label className={labelClass}>Alto (m)</label>
-                                    <input type="number" step="0.01" value={height} onChange={(e) => setHeight(parseFloat(e.target.value) || 0)} className={inputClass}/>
-                                </div>
-                                <div>
-                                    <label className={labelClass}>Marco (Profundidad)</label>
-                                    <div className="flex items-center">
-                                        <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm py-2">
-                                            {getFixedFrameDim()} x
-                                        </span>
-                                        <input type="number" step="0.1" value={frameDepth} onChange={(e) => setFrameDepth(parseFloat(e.target.value) || 0)} className="flex-1 block w-full min-w-0 border-gray-300 py-2 px-2 text-gray-900 sm:text-sm border-t border-b focus:ring-gray-900 focus:border-gray-900 bg-white"/>
-                                        <select value={frameUnit} onChange={(e) => setFrameUnit(e.target.value)} className="inline-flex items-center rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm py-2 px-2 focus:ring-gray-900 focus:border-gray-900 bg-white">
-                                            <option value="in">pulg</option>
-                                            <option value="cm">cm</option>
-                                        </select>
-                                    </div>
-                                    <p className="text-xs text-gray-500 mt-1">Escriba la medida variable (ej. {type === ProductType.CONTRAPLACADA ? '3' : '4'}).</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="border-t border-gray-200 pt-4">
-                            <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center">
-                                <Icons.Palette className="w-4 h-4 mr-2 text-gray-700"/> Material y Acabado
-                            </h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {type !== ProductType.CONTRAPLACADA && (
-                                    <div>
-                                        <label className={labelClass}>{isContraplacada ? 'Tipo de Enchapado' : 'Tipo de Madera'}</label>
-                                        <select value={wood} onChange={(e) => setWood(e.target.value)} className={inputClass}>
-                                            <option value={WoodType.CEDRO}>Cedro</option>
-                                            <option value={WoodType.CACHIMBO}>Cachimbo</option>
-                                            {type !== ProductType.PORTON && <option value={WoodType.TORNILLO}>Tornillo</option>}
-                                        </select>
-                                    </div>
-                                )}
-                                <div className={type === ProductType.CONTRAPLACADA ? "col-span-2" : ""}>
-                                    <label className={labelClass}>Acabado</label>
-                                    <select value={finish} onChange={(e) => setFinish(e.target.value)} className={inputClass}>
-                                        <option value={FinishType.LACA}>Laca (Natural Estándar)</option>
-                                        <option value={FinishType.DULLSEALER}>Dullsealer (Mate)</option>
-                                        <option value={FinishType.DD}>DD (Brillante / Protección Solar)</option>
-                                        <option value={FinishType.VARATHANE}>Varathane</option>
-                                        {type !== ProductType.CONTRAPLACADA && <option value={FinishType.BARNIZ_MARINO}>Barniz Marino (Intemperie)</option>}
-                                        <option value={FinishType.PINTADO}>Pintado (Color Sólido)</option>
-                                    </select>
-                                    <p className="text-xs text-gray-500 mt-1 flex items-start">
-                                        <Icons.Info className="w-3 h-3 mr-1 mt-0.5 flex-shrink-0"/>
-                                        {finishDescriptions[finish]}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="border-t border-gray-200 pt-4">
-                            <h3 className="text-sm font-semibold text-gray-900 mb-4 flex items-center">
-                                <Icons.Settings className="w-4 h-4 mr-2 text-gray-700"/> Adicionales y Servicios
-                            </h3>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                                {type !== ProductType.PORTON && (
-                                    <div className="flex items-center p-3 border rounded-lg bg-gray-50 md:col-span-3">
-                                        <input type="checkbox" id="install" checked={includeInstallation} onChange={(e) => setIncludeInstallation(e.target.checked)} className="h-4 w-4 text-black focus:ring-black border-gray-300 rounded"/>
-                                        <label htmlFor="install" className="ml-2 block text-sm text-gray-900 font-medium">Incluir Servicio de Instalación</label>
-                                    </div>
-                                )}
-                            </div>
-
-                            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Molduras (Marcos Decorativos)</label>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label className={labelClass}>Cara Exterior</label>
-                                        <select value={moldingOuter} onChange={(e) => setMoldingOuter(e.target.value)} className={inputClass}>
-                                            <option value={MoldingType.NINGUNO}>Ninguno</option>
-                                            <option value={MoldingType.JAMBA}>Jamba (15 soles/m)</option>
-                                            <option value={MoldingType.RODON}>Rodón (8 soles/m)</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className={labelClass}>Cara Interior</label>
-                                        <select value={moldingInner} onChange={(e) => setMoldingInner(e.target.value)} className={inputClass}>
-                                            <option value={MoldingType.NINGUNO}>Ninguno</option>
-                                            <option value={MoldingType.JAMBA}>Jamba (15 soles/m)</option>
-                                            <option value={MoldingType.RODON}>Rodón (8 soles/m)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </React.Fragment>
-                    )}
-
-                    <div className="bg-gray-100 rounded-lg p-4 mt-6 border border-gray-200 flex flex-col sm:flex-row items-center justify-between">
-                        <div className="mb-4 sm:mb-0">
-                            <span className="text-gray-500 text-xs font-bold uppercase tracking-wide">Precio Unitario Estimado</span>
-                            <div className="text-2xl font-bold text-gray-900">S/. {preview.unitPrice.toFixed(2)}</div>
-                        </div>
-                        <button type="submit" className="w-full sm:w-auto flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-black hover:bg-gray-800 md:py-3 md:text-lg shadow-sm transition-colors">
-                            <Icons.PlusCircle className="w-5 h-5 mr-2" />
-                            Agregar a Cotización
-                        </button>
-                    </div>
-                </form>
-            );
-        };
-
-        // --- 5. COMPONENTE: QuoteSummary ---
-
-        const QuoteSummary = ({ items, onRemove }) => {
-            const total = items.reduce((sum, item) => sum + item.totalPrice, 0);
-            const [note, setNote] = useState('');
-
-            if (items.length === 0) {
-                return (
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
-                        <div className="mx-auto h-12 w-12 text-gray-300 bg-gray-50 rounded-full flex items-center justify-center mb-4">
-                            <Icons.Receipt className="h-6 w-6" />
-                        </div>
-                        <h3 className="text-lg font-medium text-gray-900">Cotización Vacía</h3>
-                        <p className="mt-1 text-sm text-gray-500">Agrega productos para ver el resumen.</p>
-                    </div>
-                );
-            }
-
-            const getFrameText = (item) => {
-                if (item.type === ProductType.PERSONALIZADO) return 'N/A';
-                let fixed = '2"';
-                if (item.type === ProductType.CONTRAPLACADA) fixed = '1.5"';
-                if (item.type === ProductType.PORTON) fixed = '3"';
-                
-                const unit = item.frameUnit === 'in' ? '"' : 'cm';
-                return `${fixed}x${item.frameDepth}${unit}`;
-            };
-
-            const getMaterialLabel = (item) => {
-                if (item.type === ProductType.PERSONALIZADO) return '';
-                if (item.type === ProductType.CONTRAPLACADA) return 'Triplay enchapado en cedro y relleno con madera';
-                const isReforzada = item.type === ProductType.CONTRAPLACADA_REFORZADA;
-                const label = isReforzada ? 'Enchapado' : 'Madera';
-                return `${label}: ${item.wood}`;
-            };
-
-            return (
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col h-full">
-                    <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex items-center justify-between">
-                        <h2 className="text-md font-bold text-gray-900 flex items-center uppercase tracking-wide">
-                            <Icons.Receipt className="w-4 h-4 mr-2 text-black"/> Resumen
-                        </h2>
-                    </div>
-                    
-                    <div className="flex-1 p-4 overflow-y-auto max-h-[600px] space-y-3">
-                        {items.map((item) => (
-                            <div key={item.id} className="relative bg-white border-b border-gray-100 pb-3 last:border-0">
-                                <div className="flex justify-between items-start mb-1">
-                                    <div className="pr-8">
-                                        <h4 className="text-sm font-bold text-gray-900 uppercase leading-tight">
-                                            {item.name} {item.quantity > 1 && <span className="ml-1 text-xs text-gray-500"> (x{item.quantity})</span>}
-                                        </h4>
-                                        {item.type !== ProductType.PERSONALIZADO && (
-                                            <div className="text-xs text-gray-600 mt-0.5">{getMaterialLabel(item)}</div>
-                                        )}
-                                    </div>
-                                    <div className="text-right whitespace-nowrap">
-                                        <p className="text-sm font-bold text-gray-900">S/. {item.totalPrice.toFixed(2)}</p>
-                                    </div>
-                                </div>
-                                
-                                {item.type !== ProductType.PERSONALIZADO && (
-                                    <div className="flex flex-wrap text-[11px] text-gray-500 gap-x-3 mb-1.5">
-                                        <span><span className="font-semibold text-gray-700">Med:</span> {item.width.toFixed(2)}x{item.height.toFixed(2)}m</span>
-                                        <span><span className="font-semibold text-gray-700">Marco:</span> {getFrameText(item)}</span>
-                                        <span><span className="font-semibold text-gray-700">Acabado:</span> {item.finish?.replace('_', ' ')}</span>
-                                        <span>{item.includeInstallation ? 'c/ Inst.' : 's/ Inst.'}</span>
-                                    </div>
-                                )}
-
-                                <div className="bg-gray-50 rounded px-2 py-1.5">
-                                    <ul className="text-[10px] text-gray-500 leading-snug">
-                                        {item.details.map((detail, idx) => <li key={idx} className="truncate">- {detail}</li>)}
-                                    </ul>
-                                </div>
-
-                                <button onClick={() => onRemove(item.id)} className="absolute top-0 right-0 p-1 text-gray-300 hover:text-red-500 transition-colors" title="Eliminar">
-                                    <Icons.Trash2 className="w-3 h-3" />
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="p-4 bg-gray-100 border-t border-gray-200">
-                        <div className="mb-3">
-                            <label htmlFor="notes" className="block text-xs font-bold text-gray-500 mb-1 flex items-center">
-                                <Icons.FileText className="w-3 h-3 mr-1"/> NOTA
-                            </label>
-                            <textarea id="notes" rows={1} className="w-full text-xs p-2 border border-gray-300 rounded focus:ring-black focus:border-black" placeholder="Opcional..." value={note} onChange={(e) => setNote(e.target.value)}/>
-                        </div>
-
-                        <div className="flex justify-between items-center pt-2 border-t border-gray-300">
-                            <span className="text-lg font-bold text-gray-900">TOTAL</span>
-                            <span className="text-2xl font-black text-gray-900">S/. {total.toFixed(2)}</span>
-                        </div>
-                    </div>
-                </div>
-            );
-        };
-
-        // --- 6. APP PRINCIPAL ---
-
-        const App = () => {
-            const [items, setItems] = useState([]);
-
-            const addItem = (item) => setItems([...items, item]);
-            const removeItem = (id) => setItems(items.filter(i => i.id !== id));
-
-            return (
-                <div className="min-h-screen bg-gray-100 text-gray-800 font-sans">
-                    <header className="bg-black text-white shadow-lg sticky top-0 z-50">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                            <div className="flex items-center space-x-2">
-                                <Icons.LayoutDashboard className="h-6 w-6" />
-                                <h1 className="text-xl font-bold tracking-tight">Cotizador - La Casa de las Puertas</h1>
-                            </div>
-                        </div>
-                    </header>
-
-                    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                            <div className="lg:col-span-7 xl:col-span-8 space-y-6">
-                                <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                                    <div className="border-b border-gray-100 bg-gray-50/50 px-6 py-4 flex items-center justify-between">
-                                        <div className="flex items-center space-x-2">
-                                            <Icons.Calculator className="text-gray-800 h-5 w-5" />
-                                            <h2 className="text-lg font-semibold text-gray-900">Configurar Producto</h2>
-                                        </div>
-                                    </div>
-                                    <div className="p-6">
-                                        <DoorForm onAdd={addItem} />
-                                    </div>
-                                </div>
-
-                                <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                                    <h3 className="text-gray-800 font-semibold mb-2 flex items-center">
-                                        <Icons.FileText className="h-4 w-4 mr-2" /> Información Importante
-                                    </h3>
-                                    <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-                                        <li>Las puertas principales se escalan a un mínimo de 1.00m x 2.40m.</li>
-                                        <li>Los marcos se redondean a la pulgada superior para el cálculo (1 pulgada = 2.54cm).</li>
-                                        <li>Los portones solo están disponibles en Cedro y Cachimbo.</li>
-                                        <li>Las puertas contraplacadas tienen medidas base estándar.</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div className="lg:col-span-5 xl:col-span-4">
-                                <div className="sticky top-24">
-                                    <QuoteSummary items={items} onRemove={removeItem} />
-                                </div>
-                            </div>
-                        </div>
-                    </main>
-                </div>
-            );
-        };
-
-        // --- 7. RENDERIZADO ---
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-</body>
-</html>
+document.getElementById('indices').innerHTML=indexCard('Romanticómetro',D.romance_idx,'Afecto, planes, lenguaje romántico, iniciativa y rapidez.')+indexCard('Confianzómetro',D.trust_idx,'Vulnerabilidad, consejos, apoyo, humor, contenido y presencia.');
+
+document.getElementById('scoreboard').innerHTML=`
+<div class="card scorebox"><b class="r">${D.wins['Raúl']}</b><span>categorías para Raúl</span></div>
+<div class="card scorebox"><b>${D.wins['Empate']}</b><span>empates técnicos</span></div>
+<div class="card scorebox"><b class="g">${D.wins['Gonzalo']}</b><span>categorías para Gonzalo</span></div>`;
+
+const labels={
+angie_messages:'mensajes',angie_starts:'inicios',median_response:'min',questions:'preguntas',laughs:'señales de risa',
+affection:'mensajes afectivos',care:'mensajes de cuidado',vulnerability:'mensajes vulnerables',advice:'pedidos de opinión',
+plans:'mensajes de planes',romance:'señales románticas',support:'mensajes de apoyo',teasing:'bromas/insultos cariñosos',
+media:'archivos o stickers',daily_presence:'% de días'
+};
+document.getElementById('cats').innerHTML=D.categories.map(c=>`<tr><td><b>${c.label}</b></td><td class="r">${fmt(c.raul)} ${labels[c.metric]||''}</td><td class="g">${fmt(c.gonzalo)} ${labels[c.metric]||''}</td><td><span class="winner">${c.winner}</span></td></tr>`).join('');
+
+document.getElementById('hot').innerHTML=`
+<div class="card"><small>Mensajes de Angie a Raúl</small><b class="r">${fmt(R.angie_messages)}</b></div>
+<div class="card"><small>Mensajes de Angie a Gonzalo</small><b class="g">${fmt(G.angie_messages)}</b></div>
+<div class="card"><small>Respuesta habitual a Raúl</small><b class="r">${fmt(R.median_response)} min</b></div>
+<div class="card"><small>Respuesta habitual a Gonzalo</small><b class="g">${fmt(G.median_response)} min</b></div>
+<div class="card"><small>Chats iniciados por Angie con Raúl</small><b class="r">${fmt(R.angie_starts)}</b></div>
+<div class="card"><small>Chats iniciados por Angie con Gonzalo</small><b class="g">${fmt(G.angie_starts)}</b></div>
+<div class="card"><small>Días con conversación: Raúl</small><b class="r">${fmt(R.conversation_days)}</b></div>
+<div class="card"><small>Días con conversación: Gonzalo</small><b class="g">${fmt(G.conversation_days)}</b></div>`;
+
+function personBox(name,m,cls){
+ return `<div class="person"><h4 class="${cls}">${name}</h4>
+ <div class="row"><span>Mensajes de Angie</span><b>${fmt(m.angie_messages)}</b></div>
+ <div class="row"><span>Inicios de Angie</span><b>${fmt(m.angie_starts)}</b></div>
+ <div class="row"><span>Respuesta</span><b>${fmt(m.median_response)} min</b></div>
+ <div class="row"><span>Preguntas</span><b>${fmt(m.questions)}</b></div>
+ <div class="row"><span>Risas</span><b>${fmt(m.laughs)}</b></div>
+ <div class="row"><span>Cariño / romance</span><b>${fmt(m.affection)} / ${fmt(m.romance)}</b></div>
+ <div class="row"><span>Planes</span><b>${fmt(m.plans)}</b></div>
+ <div class="row"><span>Vulnerabilidad</span><b>${fmt(m.vulnerability)}</b></div></div>`;
+}
+document.getElementById('weeks').innerHTML=D.weekly.map(w=>`<article class="card week"><div class="weektop"><div><h3>Semana ${w.week}</h3><div class="range">${w.range}</div></div><span class="winner">MVP: ${w.winner}</span></div><div class="weekgrid">${personBox('Raúl',w['Raúl'],'r')}${personBox('Gonzalo',w['Gonzalo'],'g')}</div><div class="comment"><b>Lectura del VAR:</b> ${w.summary}</div></article>`).join('');
+</script></body></html>
